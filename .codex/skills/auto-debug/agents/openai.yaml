@@ -1,0 +1,6 @@
+interface:
+  display_name: "Auto Debug"
+  short_description: "Debug, fix, validate, and PR"
+  default_prompt: "Use $auto-debug to reproduce the failure, debug to root cause, implement the smallest correct fix, validate it, and create a GitHub PR when this is a Git-backed non-local repo with available access. Treat this as the /auto-debug workflow."
+policy:
+  allow_implicit_invocation: false

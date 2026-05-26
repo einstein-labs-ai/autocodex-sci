@@ -1,0 +1,6 @@
+interface:
+  display_name: "Auto SDLC"
+  short_description: "Requirements and architecture first"
+  default_prompt: "Use $auto-sdlc with AGENTS.override.md to ask for the needed architecture and requirements, then produce a validated SDLC delivery plan. Treat this as the /auto-SDLC workflow."
+policy:
+  allow_implicit_invocation: false

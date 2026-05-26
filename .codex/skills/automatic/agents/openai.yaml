@@ -1,0 +1,6 @@
+interface:
+  display_name: "Automatic"
+  short_description: "Suggest safe repo automation"
+  default_prompt: "Use $automatic to inspect this repo and suggest safe, testable automation opportunities. Treat this as the /automatic workflow."
+policy:
+  allow_implicit_invocation: false
