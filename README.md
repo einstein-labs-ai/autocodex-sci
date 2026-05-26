@@ -10,6 +10,7 @@ If you want Codex in your code editor (VS Code, Cursor, Windsurf), <a href="http
 ---
 
 ## Quickstart
+This is fork from Codex, this is an autonomous science SDLC, Lightweight coding agent that runs in your terminal
 
 ### Installing and running Codex CLI
 
