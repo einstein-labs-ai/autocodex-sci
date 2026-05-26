@@ -79,6 +79,9 @@ You can also use Codex with an API key, but this requires [additional setup](htt
 ## For any contributions
 Please perform pull request
 
+## Improvements
+From the provided `AGENTS.override.md` instructions, the override should improve Codex behavior for production-style work by forcing clearer intake, requirements, security review, validation, rollback thinking, and documentation.
+
 ---
 This repository is licensed under the [Apache-2.0 License](LICENSE).
 ---
