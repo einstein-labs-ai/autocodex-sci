@@ -37,6 +37,11 @@ npm install -g @openai/codex
 brew install --cask codex
 ```
 
+### How to install Agent and automatic skills
+Download AGENTS.override.md file in this respository
+Download autocodex-sci/.codex/skills/, 
+- path: auto-debug , auto-sdlc, automatic folders
+
 Then simply run `codex` to get started.
 
 <details>
