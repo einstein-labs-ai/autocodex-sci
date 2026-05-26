@@ -42,6 +42,8 @@ Download AGENTS.override.md file in this respository
 Download autocodex-sci/.codex/skills/, 
 - path: auto-debug , auto-sdlc, automatic folders
 
+
+----
 Then simply run `codex` to get started.
 
 <details>
