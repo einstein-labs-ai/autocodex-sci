@@ -185,3 +185,7 @@ This repository is licensed under the [Apache-2.0 License](LICENSE).
 ## Open source
 ### Thanks 
 OpenAI
+
+
+## Fixes
+- build(deps): bump openssl from 0.10.75 to 0.10.80 in /codex-rs
