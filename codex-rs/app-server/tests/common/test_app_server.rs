@@ -67,7 +67,10 @@ use codex_app_server_protocol::ProcessKillParams;
 use codex_app_server_protocol::ProcessResizePtyParams;
 use codex_app_server_protocol::ProcessSpawnParams;
 use codex_app_server_protocol::ProcessWriteStdinParams;
+use codex_app_server_protocol::RemoteControlClientsListParams;
+use codex_app_server_protocol::RemoteControlClientsRevokeParams;
 use codex_app_server_protocol::RemoteControlPairingStartParams;
+use codex_app_server_protocol::RemoteControlPairingStatusParams;
 use codex_app_server_protocol::RequestId;
 use codex_app_server_protocol::ReviewStartParams;
 use codex_app_server_protocol::SendAddCreditsNudgeEmailParams;
@@ -651,6 +654,35 @@ impl TestAppServer {
     ) -> anyhow::Result<i64> {
         let params = Some(serde_json::to_value(params)?);
         self.send_request("remoteControl/pairing/start", params)
+            .await
+    }
+
+    /// Send a `remoteControl/pairing/status` JSON-RPC request.
+    pub async fn send_remote_control_pairing_status_request(
+        &mut self,
+        params: RemoteControlPairingStatusParams,
+    ) -> anyhow::Result<i64> {
+        let params = Some(serde_json::to_value(params)?);
+        self.send_request("remoteControl/pairing/status", params)
+            .await
+    }
+
+    /// Send a `remoteControl/client/list` JSON-RPC request.
+    pub async fn send_remote_control_clients_list_request(
+        &mut self,
+        params: RemoteControlClientsListParams,
+    ) -> anyhow::Result<i64> {
+        let params = Some(serde_json::to_value(params)?);
+        self.send_request("remoteControl/client/list", params).await
+    }
+
+    /// Send a `remoteControl/client/revoke` JSON-RPC request.
+    pub async fn send_remote_control_clients_revoke_request(
+        &mut self,
+        params: RemoteControlClientsRevokeParams,
+    ) -> anyhow::Result<i64> {
+        let params = Some(serde_json::to_value(params)?);
+        self.send_request("remoteControl/client/revoke", params)
             .await
     }
 

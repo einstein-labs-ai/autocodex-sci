@@ -109,6 +109,21 @@ pub(crate) struct ConnectorsSnapshot {
     pub(crate) connectors: Vec<AppInfo>,
 }
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub(crate) enum PluginLocation {
+    Local { marketplace_path: AbsolutePathBuf },
+    Remote { marketplace_name: String },
+}
+
+impl PluginLocation {
+    pub(crate) fn into_request_params(self) -> (Option<AbsolutePathBuf>, Option<String>) {
+        match self {
+            PluginLocation::Local { marketplace_path } => (Some(marketplace_path), None),
+            PluginLocation::Remote { marketplace_name } => (None, Some(marketplace_name)),
+        }
+    }
+}
+
 /// Distinguishes why a rate-limit refresh was requested so the completion
 /// handler can route the result correctly.
 ///
@@ -330,6 +345,11 @@ pub(crate) enum AppEvent {
         url: String,
     },
 
+    /// Open the current thread in Codex Desktop.
+    OpenDesktopThread {
+        thread_id: ThreadId,
+    },
+
     /// Persist a pet selection and reload the ambient pet.
     PetSelected {
         pet_id: String,
@@ -488,7 +508,7 @@ pub(crate) enum AppEvent {
     /// Install a specific plugin from a marketplace.
     FetchPluginInstall {
         cwd: PathBuf,
-        marketplace_path: AbsolutePathBuf,
+        location: PluginLocation,
         plugin_name: String,
         plugin_display_name: String,
     },
@@ -496,7 +516,7 @@ pub(crate) enum AppEvent {
     /// Result of installing a plugin.
     PluginInstallLoaded {
         cwd: PathBuf,
-        marketplace_path: AbsolutePathBuf,
+        location: PluginLocation,
         plugin_name: String,
         plugin_display_name: String,
         result: Result<PluginInstallResponse, String>,

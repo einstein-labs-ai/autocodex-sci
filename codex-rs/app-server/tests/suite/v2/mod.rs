@@ -12,12 +12,13 @@ mod connection_handling_websocket;
 #[cfg(unix)]
 mod connection_handling_websocket_unix;
 mod dynamic_tools;
+mod executor_skills;
 mod experimental_api;
 mod experimental_feature_list;
 mod external_agent_config;
 mod fs;
 mod hooks_list;
-mod image_generation;
+mod imagegen_extension;
 mod initialize;
 mod marketplace_add;
 mod marketplace_remove;
