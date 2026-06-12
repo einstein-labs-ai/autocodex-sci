@@ -190,6 +190,16 @@ fn tool_search_is_removed_and_disabled_by_default() {
 }
 
 #[test]
+fn secret_auth_storage_defaults_to_windows_only() {
+    assert_eq!(Feature::SecretAuthStorage.stage(), Stage::Stable);
+    assert_eq!(Feature::SecretAuthStorage.default_enabled(), cfg!(windows));
+    assert_eq!(
+        feature_for_key("secret_auth_storage"),
+        Some(Feature::SecretAuthStorage)
+    );
+}
+
+#[test]
 fn browser_controls_are_stable_and_enabled_by_default() {
     assert_eq!(Feature::InAppBrowser.stage(), Stage::Stable);
     assert_eq!(Feature::InAppBrowser.default_enabled(), true);
@@ -701,4 +711,35 @@ fn unstable_warning_event_only_mentions_enabled_under_development_features() {
     assert!(message.contains("child_agents_md"));
     assert!(!message.contains("personality"));
     assert!(message.contains("/tmp/config.toml"));
+}
+
+#[test]
+fn unstable_warning_event_mentions_enabled_structured_under_development_feature() {
+    let configured_features: Table = toml::from_str(
+        r#"
+multi_agent_v2 = { enabled = true, tool_namespace = "agents" }
+code_mode = true
+"#,
+    )
+    .expect("features table should deserialize");
+
+    let mut features = Features::with_defaults();
+    features.enable(Feature::MultiAgentV2);
+    features.enable(Feature::CodeMode);
+
+    let warning = unstable_features_warning_event(
+        Some(&configured_features),
+        /*suppress_unstable_features_warning*/ false,
+        &features,
+        "/tmp/config.toml",
+    )
+    .expect("warning event");
+
+    let EventMsg::Warning(WarningEvent { message }) = warning.msg else {
+        panic!("expected warning event");
+    };
+    assert_eq!(
+        "Under-development features enabled: code_mode, multi_agent_v2. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /tmp/config.toml.".to_string(),
+        message
+    );
 }
